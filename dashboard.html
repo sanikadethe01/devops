@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:30px auto;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+header h1{
+    color:#2c3e50;
+}
+
+button{
+    padding:10px 15px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h2{
+    color:#555;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:30px;
+    color:#3498db;
+}
+
+.activity{
+    margin-top:30px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.activity ul{
+    margin-top:15px;
+    padding-left:20px;
+}
+
+.dark{
+    background:#1e1e1e;
+    color:white;
+}
+
+.dark .card,
+.dark .activity{
+    background:#2f2f2f;
+    color:white;
+}
+
+.dark header h1{
+    color:white;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<header>
+    <h1>Dashboard</h1>
+    <button onclick="toggleTheme()">Dark Mode</button>
+</header>
+
+<div class="cards">
+    <div class="card">
+        <h2>Users</h2>
+        <p id="users">120</p>
+    </div>
+
+    <div class="card">
+        <h2>Orders</h2>
+        <p id="orders">45</p>
+    </div>
+
+    <div class="card">
+        <h2>Revenue</h2>
+        <p>$12K</p>
+    </div>
+
+    <div class="card">
+        <h2>Tasks</h2>
+        <p id="tasks">18</p>
+    </div>
+</div>
+
+<div class="activity">
+    <h2>Recent Activity</h2>
+    <ul id="activityList">
+        <li>User John registered.</li>
+        <li>New order received.</li>
+        <li>Payment completed.</li>
+    </ul>
+</div>
+
+</div>
+
+<script>
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+}
+
+let users = 120;
+let orders = 45;
+let tasks = 18;
+
+setInterval(()=>{
+    users++;
+    orders++;
+    tasks++;
+
+    document.getElementById("users").innerText = users;
+    document.getElementById("orders").innerText = orders;
+    document.getElementById("tasks").innerText = tasks;
+
+    const li = document.createElement("li");
+    li.innerText = "New activity at " + new Date().toLocaleTimeString();
+
+    document.getElementById("activityList").prepend(li);
+
+    if(document.getElementById("activityList").children.length > 6){
+        document.getElementById("activityList").lastElementChild.remove();
+    }
+
+},5000);
+</script>
+
+</body>
+</html>
